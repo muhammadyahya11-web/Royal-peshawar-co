@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+
+*{
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+a.active hr{
+  display: block;
+}
+::-webkit-scrollbar{
+  display: none;
+}
+
+a.active + .hr-line {
+  display: block;
+}
+.hr-line {
+  display: none;
+}
+
+.hidde-scrol::-webkit-scrollbar{
+  display: none;
+}
+.hidde-scrol::-webkit-scrollbar {
+  display: none;
+}
+
+
+.hidde-scrol {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE and Edge */
+}
+
+
+
+
+
+
+body{
+  
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+body{
+  height: 100%;
+  width: 100vw;
+  overflow-x: hidden;
+  
+}
+
+
+
+
+@layer utilities {
+  @keyframes slideUpDown {
+    0% { transform: translateY(-20px); opacity: 0; }
+    20% { transform: translateY(0); opacity: 1; }
+    80% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(20px); opacity: 0; }
+  }
+
+  .animate-slideUpDown {
+    animation: slideUpDown 5s ease-in-out infinite;
+  }
+}
