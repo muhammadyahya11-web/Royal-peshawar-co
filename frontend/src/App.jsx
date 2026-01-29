@@ -16,7 +16,7 @@ import Shirts from './pages/Shirts/Shirts'
 import Search from './Components/Search/Search'
 import Product from './Components/Product/Product'
 import Cart from './Components/Cart/Cart'
-import Checkout from './Components/CheckOut/CheckOut'
+
 import AboutUs from './pages/About'
 import MyOrders from './Components/Order'
 import MyProfile from './Components/Profile'
@@ -27,6 +27,7 @@ import Jackets from './Components/Jackets'
 import Baggy from './Components/Baggy'
 import Dropshoulder from './Components/Dropshoulder'
 import RoundedNeckShirts from './Components/RoundedNeckCotton'
+import Checkout from './Components/Checkout'
 
 function App() {
 
@@ -53,7 +54,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/checkout' element={<Checkout/> } />
         <Route path='/aboutus' element={<AboutUs />} />
         <Route path='/order' element={<MyOrders />} />
         <Route path='/profile' element={<MyProfile />} />

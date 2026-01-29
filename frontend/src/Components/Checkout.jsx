@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ShopContext } from "../../Conntex/ShopContext";
+import { ShopContext } from "../Conntex/ShopContext";
 import {
   CreditCard,
   User,
@@ -65,7 +65,7 @@ const Checkout = () => {
         amount: getTotal(),
         paymentMethod
       };
-  console.log( orderData.items);
+  
   
       const res = await fetch("http://localhost:8000/api/order/place", {
         method: "POST",
