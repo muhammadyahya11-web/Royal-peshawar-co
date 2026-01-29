@@ -14,8 +14,24 @@ const userSchema = new mongoose.Schema(
     },
 
     password: {
-      type: String, // ✅ type missing تھا
+      type: String,
       required: true,
+    },
+
+    phone: {
+      type: String, // changed from Number to String
+      default: "",
+    },
+
+    address: {
+      type: String, // make sure this is String
+      default: "",
+    },
+
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
 
     cart: {
@@ -24,12 +40,10 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // ✅ createdAt, updatedAt automatically add کرے گا
-    minimize: false,  // ✅ empty objects DB میں save ہوں گے
+    timestamps: true,
+    minimize: false,
   }
 );
 
-// ✅ Correct way to create model
 const User = mongoose.model("User", userSchema);
-
 export default User;

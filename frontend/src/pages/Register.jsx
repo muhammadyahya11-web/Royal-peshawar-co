@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from './../assets/logo.png'
-import googlelogo from './../assets/google-icon.png'
+
 import axios from "axios"
 import { useState } from 'react'
-import { signInWithPopup } from 'firebase/auth'
-import { auth, provider } from '../Firebase/Firebase'
+import { Link, useNavigate } from 'react-router-dom'
+import { ShopContext } from '../Conntex/ShopContext'
 
 function Register() {
-
+   const navigate = useNavigate();
   const [email, setemail] = useState("");
-  const [password, setpassword] = useState("")
- const [message, setmessage] = useState()
- const [name, setname] = useState("")
+  const [password, setpassword] = useState("");
+ const [message, setmessage] = useState();
+ const [name, setname] = useState("");
+ const {tooken ,settooken} = useContext(ShopContext);
 
   const handleSignup = async(e) => {
     e.preventDefault();
@@ -21,6 +22,8 @@ function Register() {
        const response = await axios.post("http://localhost:8000/api/auth/register", {name,email,password})
        if(response.status===200){
         setmessage(response.data.message)
+        settooken(response.data.token)
+        navigate("/")
        }
         if(response.status===500){
         setmessage(response.data.message)
@@ -67,17 +70,7 @@ function Register() {
          
           <h1 className='font-bold text-2xl mt-[2%]'>SignUp</h1>
           <img src={logo} alt="logo" className='-mt-10 h-35 hover:w-[50] ' />
-          <div className="login-container  flex flex-col items-center -mt-12">
-
-            <p className=' my-3 font-raleway text-[13px] text-gray-700'>Choose how you'd like to sign in </p>
-            <button onClick={handlegoogleSigin} className='bg-[#f6f6f6] text-[15px] rounded-[7px] flex gap-3.5 justify-center items-center px-7 py-3 w-70'> <img className='h-[22px] rounded-full' src={googlelogo} alt="" />Signup with Google </button>
-
-            <div className='flex my-2 justify-center items-center '>
-              <hr className='border border-gray-500 w-30' />
-              <p className='px-2.5 '>or</p>
-              <hr className='border border-gray-500 w-30' />
-
-            </div>
+          <div className="login-container  flex flex-col items-center mt-5">
 
 
             <form onSubmit={handleSignup} className='mt-1   flex items-center flex-col gap-3 '>
@@ -86,7 +79,8 @@ function Register() {
               <input type="password"  value={password} onChange={ (e)=>{setpassword(e.target.value)}}  placeholder='Password' className=' w-70 bg-[#f6f6f6] rounded-[7px] px-7 py-3' />
               <button type='submit' className='  rounded-[7px] bg-[#f6f6f6] px-7 py-3 w-70 '>Submit </button>
                <p className='text-[13px] mb-1 text-gray-700'>{message}</p>
-              <p className='text-[13px] m-4 text-gray-700'>You have Already an Account click here <span className='text-blue-600 bold '>Login</span></p>
+              <p className='text-[13px] m-4 text-gray-700'>You have Already an Account click here
+                <Link to={"/register"} > <span className='text-blue-600 bold '>Login</span></Link></p>
 
             </form>
 

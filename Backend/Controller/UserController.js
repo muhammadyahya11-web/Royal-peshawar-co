@@ -26,3 +26,42 @@ const getCurrentUser = async (req, res) => {
 };
 
 export default getCurrentUser;
+
+// ================================================================
+
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = req.userId
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// ============================================================
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, email, phone, address } = req.body;
+
+    const updatedFields = { name, email };
+    if (phone !== undefined) updatedFields.phone = phone;
+    if (address !== undefined) updatedFields.address = address;
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      updatedFields,
+      { new: true }
+    );
+
+    res.json({
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};

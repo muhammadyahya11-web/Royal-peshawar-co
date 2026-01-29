@@ -2,6 +2,7 @@ import User from "../Module/UUserModule.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { genToken } from "../Config/token.js";
+import jwt from "jsonwebtoken"
 
 export const Register = async (req, res) => {
   try {
@@ -47,11 +48,11 @@ export const Register = async (req, res) => {
     // 8️⃣ Send response
     return res.status(200).json({
       message: "User registered successfully",
-      user,
+      token
     });
   } catch (error) {
-    console.error("Error in register:", error);
-    res.status(404).json({ message: "Some error in signup" });
+    console.error("Error in register:");
+    res.status(404).json({ message: "Some error in signup "  ,error :error});
   }
 };
 
@@ -60,6 +61,8 @@ export const Register = async (req, res) => {
     try {
         const {email , password} = req.body
        const user = await User.findOne({email})
+       console.log(email);
+       
         if(!user){
            return res.send({ status : 404 , message : "this user cannot exist"})
         }
@@ -73,26 +76,75 @@ export const Register = async (req, res) => {
     
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true if using HTTPS
+      secure: false, 
       sameSite: "Strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      maxAge: 24 * 60 * 60 * 1000,
     });
         
-      return res.send({ status : "400" , message : "Sucessful Login "})
+      return res.send({ status : "400" , token , message : "Sucessful Login "})
     } catch (error) {
           return res.send({ status : "404" , message : "Login error "})
     }
 }
 // =================logOut====================================================
 
-export const  logout = async (req ,res) =>{
-   try {
-      await res.clearCookie("token")
-    return res.send({ status : "200" , message : "Logout Successfuly"})
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Logout failed",
+    });
+  }
+};
+
+
+
+// =================================ADMIN============================================
+
+
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log(email, password);
     
-   } catch (error) {
-    return res.send({ status : "404" , message : "Logout error "})
-   }
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(
+        { isAdmin: true, email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
 
+      return res.status(200).json({
+        success: true,
+        token,
+        message: "Admin login successful",
+      });
+    }
 
-}
+    return res.status(401).json({
+      success: false,
+      message: "Invalid admin credentials",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};

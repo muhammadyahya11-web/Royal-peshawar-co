@@ -1,123 +1,264 @@
 import React, { createContext, useEffect, useState } from "react";
-import { products } from "../assets/frontend_assets/assets";
+import axios from "axios";
 
 export const ShopContext = createContext();
 
-const ShopContextProvider = ({ children }) => {
+const API = axios.create({
+  baseURL: "http://localhost:8000/api",
+  withCredentials: true,
+});
 
+const ShopContextProvider = ({ children }) => {
+  // ================= UI =================
   const [showSearch, setshowSearch] = useState(false);
   const [visible, setvisible] = useState(false);
   const [search, setsearch] = useState("");
-  const [cart, setcart] = useState([]);
+  const [orders, setorders] = useState([])
 
-  const currency = "$";
+  // ================= TOKEN =================
+  const [tooken, settooken] = useState(() => localStorage.getItem("tooken"));
+  useEffect(() => {
+    if (tooken) localStorage.setItem("tooken", tooken);
+  }, [tooken]);
+
+  // ================= CART =================
+  const [cart, setcart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    if (!tooken) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, tooken]);
+
+  // ================= PRODUCTS =================
+  const [products, setproducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const currency = "PKR";
   const deliveryFee = 10;
 
-  // 🛒 ADD TO CART
-  const addToCart = (productDetail, size) => {
-    const exist = cart.find(
-      item =>
-        item.product._id === productDetail._id &&
-        item.Size === size
-    );
-
-    if (exist) {
-      setcart(
-        cart.map(item =>
-          item.product._id === productDetail._id &&
-          item.Size === size
-            ? { ...item, Qty: item.Qty + 1 }
-            : item
-        )
-      );
-    } else {
-      setcart([
-        ...cart,
-        { product: productDetail, Size: size, Qty: 1 }
-      ]);
+  // ================= LOGOUT =================
+  const LogOut = async (navigate) => {
+    try {
+      await API.post("/auth/logout");
+      settooken("");
+      setcart([]);
+      localStorage.removeItem("tooken");
+      localStorage.removeItem("cart");
+      if (navigate) navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error.message);
     }
   };
 
-  // ➕ INCREASE QTY
-  const increaseQty = (id, size) => {
-    setcart(
-      cart.map(item =>
-        item.product._id === id && item.Size === size
-          ? { ...item, Qty: item.Qty + 1 }
-          : item
-      )
-    );
+  // ================= FETCH PRODUCTS =================
+  const fetchProducts = async () => {
+    try {
+      const res = await API.get("/product/productlist");
+      setproducts(res.data.products || []);
+    } catch (err) {
+      console.error("Fetch products error:", err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // ➖ DECREASE QTY
-  const decreaseQty = (id, size) => {
-    setcart(
-      cart
-        .map(item =>
-          item.product._id === id && item.Size === size
-            ? { ...item, Qty: item.Qty - 1 }
-            : item
-        )
-        .filter(item => item.Qty > 0)
-    );
-  };
-
-  // 🗑 DELETE ITEM
-  const deleteItem = (id, size) => {
-    setcart(
-      cart.filter(
-        item => !(item.product._id === id && item.Size === size)
-      )
-    );
-  };
-
-  // 🧮 SUBTOTAL
-  const getSubtotal = () => {
-    return cart.reduce(
-      (total, item) => total + item.product.price * item.Qty,
-      0
-    );
-  };
-
-  // 💰 TOTAL
-  const getTotal = () => {
-    return getSubtotal() + deliveryFee;
-  };
-
-  //  CLEAR CART
-  const clearCart = () => {
-    setcart([]);
-  };
-// ================CART LENGTH =========================================================================
-    const cartlength = cart.length
-
-  //================================ LOAD CART FROM LOCAL STORAGE=======================================
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-  
-    
-    if (savedCart) {
-      setcart(JSON.parse(savedCart));
-    }
+    fetchProducts();
   }, []);
 
+  // ================= FETCH CART =================
+  const fetchCart = async () => {
+    if (!tooken) return; // local storage cart is already loaded
+    console.log("tooken " ,tooken);
+    
+    try {
+      const res = await API.get("/cart/get", {
+        headers: { Authorization: `Bearer ${tooken}` },
+      });
+      console.log("cart data " ,res.data);
+      
+      setcart(res.data.items || []);
+    } catch (err) {
+      console.error("Fetch cart error:", err);
+    }
+  };
 
-  // ==========================================SAVE CART TO LOCAL STORAGE=======================================
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    fetchCart();
+  }, [tooken]);
+
+  // ================= ADD TO CART =================
+  const addToCart = async (product, size) => {
+  
+    
+    if (tooken) {
+      
+        console.log("product :" ,product.name ,product.price , product.images[0]);
+        
+      try {
+        const res = await API.post(
+          "/cart/add",
+          { productId: product._id, size , quantity: 1 ,image : product.images[0] ,name :product.name ,price : product.price ,},
+          { headers: { Authorization: `Bearer ${tooken}` } }
+        );
+        setcart(res.data.items || cart);
+      } catch (err) {
+        console.error("Add to cart error:", err);
+      }
+    } else {
+      // user not logged in → localStorage
+      const exist = cart.find(
+        (i) => i.product._id === product._id && i.size === size
+      );
+      let updatedCart = [];
+      if (exist) {
+        updatedCart = cart.map((i) =>
+          i.product._id === product._id && i.size === size
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      } else {
+        updatedCart = [...cart, { product, size, quantity: 1 }];
+      }
+      setcart(updatedCart);
+    }
+  };
+
+  // ================= UPDATE QUANTITY =================
+  const increaseQty = async (productId, size) => {
+    const item = cart.find((i) => i.product._id === productId && i.size === size);
+    if (!item) return;
+    console.log(productId ,size );
+    
+    const newQuantity = item.quantity + 1;
+
+    if (tooken) {
+      // API
+      try {
+        const res = await API.put(
+          "/cart/update",
+          { productId, size, quantity: newQuantity },
+          { headers: { Authorization: `Bearer ${tooken}` } }
+        );
+        setcart(res.data.items || cart);
+      } catch (err) {
+        console.error("Increase quantity error:", err);
+      }
+    } else {
+      // localStorage
+      setcart((prev) =>
+        prev.map((i) =>
+          i.product._id === productId && i.size === size
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        )
+      );
+    }
+  };
+
+  const decreaseQty = async (productId, size) => {
+    const item = cart.find((i) => i.product._id === productId && i.size === size);
+    if (!item) return;
+    const newQuantity = item.quantity - 1;
+
+    if (newQuantity <= 0) return removeItem(productId, size);
+
+    if (tooken) {
+      try {
+        console.log(tooken);
+        
+        const res = await API.put(
+          "/cart/update",
+          { productId, size, quantity: newQuantity },
+          { headers: { Authorization: `Bearer ${tooken}` } }
+        );
+        setcart(res.data.items || cart);
+      } catch (err) {
+        console.error("Decrease quantity error:", err);
+      }
+    } else {
+      setcart((prev) =>
+        prev.map((i) =>
+          i.product._id === productId && i.size === size
+            ? { ...i, quantity: i.quantity - 1 }
+            : i
+        )
+      );
+    }
+  };
+
+  // ================= REMOVE ITEM =================
+  const removeItem = async (productId, size) => {
+    console.log(productId ,size);
+    
+    
+    if (tooken) {
+      try {
+        const res = await API.delete("/cart/remove", {
+          headers: { Authorization: `Bearer ${tooken}` },
+          data: { productId, size },
+        });
+        console.log(res.data ,tooken);
+        
+        setcart(res.data.items || cart.filter((i) => !(i.product._id === productId && i.size === size)));
+      } catch (err) {
+        console.error("Remove item error:", err);
+      }
+    } else {
+      setcart((prev) =>
+        prev.filter((i) => !(i.product._id === productId && i.size === size))
+      );
+    }
+  };
 
 
+
+  // ================= TOTALS =================
+  const getSubtotal = () =>
+    cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+
+  const getTotal = () => getSubtotal() + deliveryFee;
+
+  const cartlength = cart.reduce((sum, item) => sum + item.quantity, 0);
+  // ===================================================================
+  useEffect(() => {
+      const fetchorder = async () => {
+        try {
+          const orders = await axios.get(
+            "http://localhost:8000/api/order/orders",
+            
+            {
+              headers: { Authorization: `Bearer ${tooken}` },
+            }
+           
+  
+          );
+          
+          setorders(orders.data.orders)
+          
+        } catch (error) {
+          console.error("Error fetching profile:", error);
+        }
+      };
+      if (tooken) fetchorder();
+    }, [tooken]);
+    
+    
+  
+  
+  // ===================================================================================
 
   const value = {
     products,
+    loading,
     cart,
-    setcart,
     addToCart,
     increaseQty,
     decreaseQty,
-    deleteItem,
-    clearCart,
+    removeItem,
     getSubtotal,
     getTotal,
     currency,
@@ -128,14 +269,15 @@ const ShopContextProvider = ({ children }) => {
     setvisible,
     search,
     setsearch,
-    cartlength
+    cartlength,
+    setcart,
+    LogOut,
+    tooken,
+    settooken,
+    orders , setorders
   };
 
-  return (
-    <ShopContext.Provider value={value}>
-      {children}
-    </ShopContext.Provider>
-  );
+  return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
 
 export default ShopContextProvider;
