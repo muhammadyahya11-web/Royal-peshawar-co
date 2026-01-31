@@ -4,7 +4,7 @@ import axios from "axios";
 export const ShopContext = createContext();
 
 const API = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "import.meta.env.PORT/api",
   withCredentials: true,
 });
 
