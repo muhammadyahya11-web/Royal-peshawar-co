@@ -4,8 +4,13 @@ import axios from "axios";
 export const ShopContext = createContext();
 
 const API = axios.create({
+<<<<<<< HEAD
   baseURL: "http://localhost:8000/api",
 
+=======
+  baseURL: "import.meta.env.PORT/api",
+  withCredentials: true,
+>>>>>>> 75c11e32a9757cadf684c8e77511e842e959a15b
 });
 
 const ShopContextProvider = ({ children }) => {
