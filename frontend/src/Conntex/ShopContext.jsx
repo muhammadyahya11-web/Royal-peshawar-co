@@ -7,9 +7,6 @@ const API = axios.create({
 
   baseURL: "http://localhost:8000/api",
 
-  baseURL: "import.meta.env.PORT/api",
-  
-
 });
 
 const ShopContextProvider = ({ children }) => {
