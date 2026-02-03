@@ -6,7 +6,7 @@ import SkeletonCard from "./SkeletonCard";
 export default function BestSeller({ setQuickView }) {
   const [loading, setLoading] = useState(true);
   const [bestSeller, setBestSeller] = useState([]);
-  const { products , } = useContext(ShopContext);
+  const { products  } = useContext(ShopContext);
 
   useEffect(() => {
     if (products.length > 0) {

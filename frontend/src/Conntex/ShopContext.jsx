@@ -5,7 +5,7 @@ export const ShopContext = createContext();
 
 const API = axios.create({
   baseURL: "http://localhost:8000/api",
-  withCredentials: true,
+
 });
 
 const ShopContextProvider = ({ children }) => {
@@ -56,7 +56,7 @@ const ShopContextProvider = ({ children }) => {
   // ================= FETCH PRODUCTS =================
   const fetchProducts = async () => {
     try {
-      const res = await API.get("/product/productlist");
+      const res = await API.get("/product/productlist" );
       setproducts(res.data.products || []);
     } catch (err) {
       console.error("Fetch products error:", err.message);
@@ -93,10 +93,11 @@ const ShopContextProvider = ({ children }) => {
   // ================= ADD TO CART =================
   const addToCart = async (product, size) => {
   
+    console.log(product ,"size " ,size);
     
     if (tooken) {
       
-        console.log("product :" ,product.name ,product.price , product.images[0]);
+       
         
       try {
         const res = await API.post(

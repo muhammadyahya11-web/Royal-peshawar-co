@@ -16,7 +16,7 @@ function AdminLogin() {
         try {
             
 
-            const res = await axios.post("http://localhost:8000/api/auth/adminlogin", { email, password } ,{ withCredentials: true })
+            const res = await axios.post("http://localhost:8000/api/auth/adminlogin", { email, password } )
             console.log(res.data.token);
             
             if (res.status === 200) {
