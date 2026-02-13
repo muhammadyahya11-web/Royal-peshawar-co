@@ -28,7 +28,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        "https://royal-peshawar-server.vercel.app/api/auth/login",
         { email, password },
         { withCredentials: true }
       );
