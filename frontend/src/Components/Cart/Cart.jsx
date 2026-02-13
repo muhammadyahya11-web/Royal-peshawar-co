@@ -54,7 +54,7 @@ const Cart = () => {
         <div className="lg:col-span-2 space-y-5">
           {cart.map(item => (
             <div key={`${item.product._id}-${item.size}`} className="bg-white rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-5 shadow-sm hover:shadow-md transition">
-              <img src={item.image} alt={item.product._id} className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg" />
+              <img src={item.images[0]} alt={item.product._id} className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg" />
 
               <div className="flex-1 w-full">
                 <h3 className="font-semibold text-gray-800">{item.product.name}</h3>
