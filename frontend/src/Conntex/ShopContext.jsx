@@ -5,7 +5,7 @@ export const ShopContext = createContext();
 
 const API = axios.create({
 
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://royal-peshawar-server.vercel.app/api",
 
 });
 
