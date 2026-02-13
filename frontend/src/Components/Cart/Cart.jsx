@@ -17,7 +17,7 @@ const Cart = () => {
 
   }
   console.log('====================================');
-  console.log(cart.product);
+  console.log(cart);
   console.log('====================================');
 
   const subtotal = useMemo(
