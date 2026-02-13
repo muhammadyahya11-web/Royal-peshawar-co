@@ -19,7 +19,7 @@ function Register() {
    
     
     try {
-       const response = await axios.post("http://localhost:8000/api/auth/register", {name,email,password})
+       const response = await axios.post("https://royal-peshawar-server.vercel.app/api/auth/register", {name,email,password})
        if(response.status===200){
         setmessage(response.data.message)
         settooken(response.data.token)
@@ -80,7 +80,7 @@ function Register() {
               <button type='submit' className='  rounded-[7px] bg-[#f6f6f6] px-7 py-3 w-70 '>Submit </button>
                <p className='text-[13px] mb-1 text-gray-700'>{message}</p>
               <p className='text-[13px] m-4 text-gray-700'>You have Already an Account click here
-                <Link to={"/register"} > <span className='text-blue-600 bold '>Login</span></Link></p>
+                <Link to={"/login"} > <span className='text-blue-600 bold '>Login</span></Link></p>
 
             </form>
 
