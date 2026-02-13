@@ -17,7 +17,7 @@ function Product() {
   // ================= FETCH SINGLE PRODUCT =================
 const fetchProduct = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/product/product/${productId.trim()}`);
+      const res = await fetch(`https://royal-peshawar-server.vercel.app/api/product/product/${productId.trim()}`);
 const data = await res.json();
 
       if (data.success) {
