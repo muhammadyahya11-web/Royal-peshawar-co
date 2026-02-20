@@ -31,7 +31,7 @@ import Checkout from './Components/Checkout'
 import { useEffect } from 'react'
 
 function App() {
-
+const location = useLocation();
    useEffect(() => {
     window.scrollTo(0, 0); 
   }, [location]);
