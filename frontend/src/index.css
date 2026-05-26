@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+:root {
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --soft-bg: #faf8f5;
+  --soft-surface: #ffffff;
+  --soft-muted: #f3efe8;
+  --soft-text: #3d3935;
+  --soft-text-muted: #8f8980;
+  --soft-accent: #a68b5b;
+  --soft-accent-light: #ebe4d8;
+  --soft-border: #e8e4de;
+  --cream: #f7f4ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--soft-text);
+  background: var(--soft-bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.bg-soft {
+  background-color: var(--soft-bg);
+}
+
+.bg-soft-muted {
+  background-color: var(--soft-muted);
+}
+
+.bg-cream {
+  background-color: var(--cream);
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 24px rgba(61, 57, 53, 0.06);
+}
+
+.shadow-soft-lg {
+  box-shadow: 0 12px 40px rgba(61, 57, 53, 0.08);
+}
+
+a.active hr,
+a.active + .hr-line {
+  display: block;
+}
+
+.hr-line {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd8d0;
+  border-radius: 4px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+@layer utilities {
+  @keyframes slideUpDown {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    20% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  }
+
+  .animate-slideUpDown {
+    animation: slideUpDown 5s ease-in-out infinite;
+  }
+}
