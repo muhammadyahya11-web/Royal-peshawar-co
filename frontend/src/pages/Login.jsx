@@ -29,12 +29,7 @@ function Login() {
     setMessage("");
 
     try {
-      const res = await axios.post(
-<<<<<<< HEAD
-        "https://royal-peshawar-server.vercel.app/api/auth/login",
-=======
-        `${API_BASE}/auth/login`,
->>>>>>> 7f4ba3e (Updated Stripe payment integration and UI)
+      const res = await axios.post(`${API_BASE}/auth/login`
         { email, password },
         { withCredentials: true }
       );
