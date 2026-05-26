@@ -29,7 +29,7 @@ function Login() {
     setMessage("");
 
     try {
-      const res = await axios.post(`${API_BASE}/auth/login`
+      const res = await axios.post(`${API_BASE}/auth/login` ,
         { email, password },
         { withCredentials: true }
       );
