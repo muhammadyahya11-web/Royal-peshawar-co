@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import connectDb from "./Config/Db.js";
 
@@ -12,12 +13,21 @@ import SettingsRoutes from "./routes/SettingsRoutes.js";
 
 import { stripeWebhook } from "./Controller/Ordercontroller.js";
 
+dotenv.config();
+
 const app = express();
-connectDb();
 
-const port = process.env.PORT || 8000;
+/* ================= DB CONNECTION (SAFE) ================= */
+let isConnected = false;
 
-/* ================= STRIPE WEBHOOK (MUST FIRST) ================= */
+const initDb = async () => {
+  if (!isConnected) {
+    await connectDb();
+    isConnected = true;
+  }
+};
+
+/* ================= STRIPE WEBHOOK (RAW MUST FIRST) ================= */
 app.post(
   "/api/order/webhook",
   express.raw({ type: "application/json" }),
@@ -37,6 +47,12 @@ app.use(
 
 app.use(express.json());
 
+/* ================= INIT DB MIDDLEWARE ================= */
+app.use(async (req, res, next) => {
+  await initDb();
+  next();
+});
+
 /* ================= ROUTES ================= */
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -47,10 +63,8 @@ app.use("/api/settings", SettingsRoutes);
 
 /* ================= TEST ROUTE ================= */
 app.get("/", (req, res) => {
-  res.send("Hello API is working");
+  res.send("Hello API is working 🚀");
 });
 
-/* ================= SERVER ================= */
-app.listen(port, () =>
-  console.log("server started on port:", port)
-);
+/* ================= EXPORT (IMPORTANT FOR VERCEL) ================= */
+export default app;
