@@ -1,7 +1,7 @@
 import express from "express";
 
 
-import upload from "../config/multer.js";
+import upload from "../Config/multer.js";
 import { addNewProduct, getSingleProduct, ProductList, productStatus, RemoveProduct, UpdateProduct ,} from "../controllers/productController.js";
 import { adminAuthorization } from "../middleware/isAdmin.js";
 
