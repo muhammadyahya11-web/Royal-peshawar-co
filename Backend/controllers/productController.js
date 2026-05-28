@@ -1,4 +1,4 @@
-import cloudinary from "../config/cloudinary.js";
+import cloudinary from "../Config/cloudinary.js";
 import Product from "../models/Product.js";
 import User from "../models/User.js";
 // ======================FILE UPLOAD TO CLOUDENERY==============================================
