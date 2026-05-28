@@ -1,7 +1,7 @@
-import exppress from "express"
-import { addToCart, updateCartQuantity ,removeFromCart ,getCart } from "../Controller/CartController.js";
-import isAuth from "../Middleware/isAuth.js";
-const CartRoutes = exppress.Router();
+import express from "express"
+import { addToCart, updateCartQuantity ,removeFromCart ,getCart } from "../controllers/cartController.js";
+import isAuth from "../middleware/isAuth.js";
+const CartRoutes = express.Router();
 
 CartRoutes.post("/add", isAuth ,   addToCart);
 CartRoutes.get("/get", isAuth, getCart);

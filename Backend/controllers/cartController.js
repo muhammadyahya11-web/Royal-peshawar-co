@@ -1,4 +1,4 @@
-import Cart from "../Module/CartModule.js";
+import Cart from "../models/Cart.js";
 
 const addToCart = async (req, res) => {
   try {
@@ -7,7 +7,7 @@ const addToCart = async (req, res) => {
     const { productId, quantity = 1, size ,images , name , price} = req.body;
        
     if(! images){
-       return res.status(400).json({ message: "product image not avlible " });
+       return res.status(400).json({ message: "product image not available" });
     }
     if (!productId || !size) {
       return res.status(400).json({ message: "productId and size required" });

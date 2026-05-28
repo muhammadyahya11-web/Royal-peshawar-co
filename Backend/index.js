@@ -2,16 +2,16 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import connectDb from "./Config/Db.js";
+import connectDb from "./config/Db.js";
 
 import authRoutes from "./routes/AuthRoutes.js";
-import userRoutes from "./routes/UserRotes.js";
+import userRoutes from "./routes/UserRoutes.js";
 import Productrouter from "./routes/ProductRoutes.js";
 import CartRoutes from "./routes/CartRoutes.js";
 import OrderRoutes from "./routes/OrderRoutes.js";
 import SettingsRoutes from "./routes/SettingsRoutes.js";
 
-import { stripeWebhook } from "./Controller/Ordercontroller.js";
+import { stripeWebhook } from "./controllers/orderController.js";
 
 dotenv.config();
 
@@ -64,6 +64,12 @@ app.use("/api/settings", SettingsRoutes);
 /* ================= TEST ROUTE ================= */
 app.get("/", (req, res) => {
   res.send("Hello API is working 🚀");
+});
+
+/* ================= START SERVER (LOCAL) ================= */
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on http://localhost:${PORT}`);
 });
 
 /* ================= EXPORT (IMPORTANT FOR VERCEL) ================= */

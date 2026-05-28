@@ -1,4 +1,4 @@
-import Settings from "../Module/SettingsModule.js";
+import Settings from "../models/Settings.js";
 
 const defaultSettings = {
   storeName: "Royal Peshawar Co.",

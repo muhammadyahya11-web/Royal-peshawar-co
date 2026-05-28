@@ -1,11 +1,11 @@
-import Order from "../Module/OrderModule.js";
-import User from "../Module/UUserModule.js";
-import Cart from "../Module/CartModule.js";
+import Order from "../models/Order.js";
+import User from "../models/User.js";
+import Cart from "../models/Cart.js";
 import Stripe from "stripe";
 
 const getStripe = () => {
   if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not set in Backend/.env");
+    throw new Error("STRIPE_SECRET_KEY is not set in backend/.env");
   }
   return new Stripe(process.env.STRIPE_SECRET_KEY);
 };

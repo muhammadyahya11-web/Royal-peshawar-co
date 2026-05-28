@@ -1,6 +1,6 @@
-import cloudinary from "../Config/Cloudenery.js";
-import Product from "../Module/ProductModule.js";
-import User from "../Module/UUserModule.js";
+import cloudinary from "../config/cloudinary.js";
+import Product from "../models/Product.js";
+import User from "../models/User.js";
 // ======================FILE UPLOAD TO CLOUDENERY==============================================
 const uploadToCloudinary = (fileBuffer) => {
     return new Promise((resolve, reject) => {
@@ -70,9 +70,9 @@ const ProductList = async (req, res) => {
     }
 
 }
-//=============================GET SINGAL PRODUCT========================================
+//=============================GET SINGLE PRODUCT========================================
 
-const getSingalProduct = async (req, res) => {
+const getSingleProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -233,4 +233,4 @@ const productStatus = async (req, res) => {
 
 
 // =======================EXPORT ROUTES======================================================
-export { addNewProduct, ProductList ,getSingalProduct ,RemoveProduct ,UpdateProduct, productStatus };
+export { addNewProduct, ProductList ,getSingleProduct ,RemoveProduct ,UpdateProduct, productStatus };

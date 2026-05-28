@@ -1,6 +1,6 @@
 import express from "express";
-import { getSettings, updateSettings } from "../Controller/SettingsController.js";
-import { adminAuthorization } from "../Middleware/isAdmin.js";
+import { getSettings, updateSettings } from "../controllers/settingsController.js";
+import { adminAuthorization } from "../middleware/isAdmin.js";
 
 const SettingsRoutes = express.Router();
 
