@@ -10,7 +10,7 @@ import Tshirts from "../Components/Tshirts";
 import Hoodies from "../Components/Hoodies";
 import Hero from "../Components/Hero";
 import SectionHeader from "../Components/SectionHeader";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "../../src/context/ShopContext.jsx";
 
 const marqueeItems = [
   "Free shipping over PKR 5000",

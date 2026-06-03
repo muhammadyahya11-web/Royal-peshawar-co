@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { ProductCard } from "./ProductCard";
 import SkeletonCard from "./SkeletonCard";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 
 function Hoodies({ setQuickView }) {
   const { products, loading } = useContext(ShopContext);

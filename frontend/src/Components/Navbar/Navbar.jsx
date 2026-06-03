@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import logo from "./../../assets/logo.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/frontend_assets/assets";
-import { ShopContext } from "../../Conntex/ShopContext";
+import { ShopContext } from "../../context/ShopContext.jsx";
 import { Menu, X, User, ShoppingBag } from "lucide-react";
 
 const navLinkClass = ({ isActive }) =>

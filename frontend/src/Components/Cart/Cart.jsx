@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { ShopContext } from "../../Conntex/ShopContext";
+import { ShopContext } from "./../../context/ShopContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { toast } from "react-toastify";

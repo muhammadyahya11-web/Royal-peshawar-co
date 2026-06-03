@@ -1,7 +1,7 @@
 import { ShoppingBag, Eye } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import { toast } from "react-toastify";
 
 export const ProductCard = ({ product, onQuickView }) => {

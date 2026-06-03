@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import Product from "../Components/Product";
 
 const normalize = (value) =>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { assets } from '../../assets/frontend_assets/assets'
 import { useContext  ,useEffect} from 'react'
-import { ShopContext } from '../../Conntex/ShopContext'
+import { ShopContext } from '../../context/ShopContext.jsx'
 import { useLocation } from 'react-router-dom'
 function Search() {
 

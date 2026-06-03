@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_BASE } from "../config/api.js";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import { Eye, EyeOff } from "lucide-react";
 
 function Login() {
