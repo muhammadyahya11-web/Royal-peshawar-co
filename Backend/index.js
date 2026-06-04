@@ -38,8 +38,8 @@ app.post(
 app.use(
   cors({
     origin: [
-      process.env.FRONTEND_URL || "http://localhost:5173",
-      "https://royal-peshawar-co.vercel.app",
+      process.env.FRONTEND_URL || "http://localhost:5173" ,
+      "https://royal-peshawar-co.vercel.app", "http://localhost:5174" ,
     ],
     credentials: true,
   })

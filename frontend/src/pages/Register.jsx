@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import logo from "./../assets/logo.png";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import { API_BASE } from "../config/api.js";
 import { toast } from "react-toastify";
 

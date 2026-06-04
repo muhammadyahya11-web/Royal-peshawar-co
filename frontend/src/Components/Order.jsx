@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Package, CreditCard, MapPin } from "lucide-react";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import { getItemImage } from "../utils/cartHelpers.js";
 
 const getOrderItemImage = (item) => {

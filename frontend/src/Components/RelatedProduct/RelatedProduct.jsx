@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ShopContext } from "../../Conntex/ShopContext";
+import { ShopContext } from "./../../context/ShopContext";
 import Product from "../Product";
 
 function RelatedProduct({ category, subCategory }) {

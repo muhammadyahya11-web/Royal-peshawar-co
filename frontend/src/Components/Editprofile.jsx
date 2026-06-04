@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { User, Mail, Phone, MapPin, Save } from "lucide-react";
 import axios from "axios";
 import { API_BASE } from "../config/api.js";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 
 export default function EditProfile() {
   const { tooken } = useContext(ShopContext); // JWT token

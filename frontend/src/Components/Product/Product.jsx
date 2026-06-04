@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ShopContext } from '../../Conntex/ShopContext';
+import { ShopContext } from '../../context/ShopContext.jsx';
 import { useParams } from 'react-router-dom';
 import RelatedProduct from '../RelatedProduct/RelatedProduct';
 import { API_BASE } from '../../config/api.js';
@@ -18,9 +18,9 @@ function Product() {
 const fetchProduct = async () => {
     try {
 
-      const res = await fetch(`https://royal-peshawar-server.vercel.app/api/product/product/${productId.trim()}`);
+      // const res = await fetch(`https://royal-peshawar-server.vercel.app/api/product/product/${productId.trim()}`);
 
-      // const res = await fetch(`${API_BASE}/product/product/${productId.trim()}`);
+       const res = await fetch(`${API_BASE}/product/product/${productId.trim()}`);
 
 const data = await res.json();
 

@@ -2,7 +2,7 @@ import React from "react";
 import { User, Mail, Phone, MapPin, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from   "./../context/ShopContext.jsx";
 import { useState ,useEffect } from "react";
 import axios from "axios";
 import { API_BASE } from "../config/api.js";

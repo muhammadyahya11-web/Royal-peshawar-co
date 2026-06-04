@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle, Loader2 } from "lucide-react";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext.jsx";
 import { toast } from "react-toastify";
 
 import { API_BASE } from "../config/api.js";
