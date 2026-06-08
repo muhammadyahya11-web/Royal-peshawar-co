@@ -5,7 +5,7 @@
 
 import express from "express";
 
-import isAuth from "../middleware/isAuth.js";
+import isAuth from "../Middleware/isAuth.js";
 
 import {
   placeOrder,
@@ -17,7 +17,7 @@ import {
   updateOrderStatus,
 } from "../controllers/orderController.js";
 
-import { adminAuthorization } from "../middleware/isAdmin.js";
+import { adminAuthorization } from "../Middleware/isAdmin.js";
 
 const OrderRoutes = express.Router();
 
