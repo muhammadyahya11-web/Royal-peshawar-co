@@ -138,7 +138,7 @@ function Navbar() {
             </NavLink>
           ))}
           <a
-            href="http://localhost:5174"
+            href="https://royal-peshawar-co-admin.vercel.app/"
             target="_blank"
             rel="noreferrer"
             className="block py-3 text-emerald-700 font-medium"
