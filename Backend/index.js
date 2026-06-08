@@ -35,16 +35,19 @@ app.post(
 );
 
 /* ================= MIDDLEWARE ================= */
-app.use(
+
+ app.use(
   cors({
     origin: [
-      "https://royal-peshawar-co.vercel.app/" || "http://localhost:5173" ,
-      , "http://localhost:5174" ,
-      
+      "https://royal-peshawar-co.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:5174",
     ],
     credentials: true,
+    origin : true,
   })
-);
+)
+
 
 app.use(express.json());
 
