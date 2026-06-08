@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../Conntex/ShopContext";
+import { ShopContext } from "./../context/ShopContext";
 import Product from "../Components/Product";
 import { useNavigate } from "react-router-dom";
 
