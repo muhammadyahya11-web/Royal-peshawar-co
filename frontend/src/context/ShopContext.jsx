@@ -8,7 +8,7 @@ export const ShopContext = createContext();
 
 
 const API = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: API_BASE,
 });
 
 const ShopContextProvider = ({ children }) => {
