@@ -40,6 +40,7 @@ app.post(
   cors({
     origin: [
       "https://royal-peshawar-co.vercel.app",
+      "https://royal-peshawar-co-admin.vercel.app",
       "http://localhost:5173",
       "http://localhost:5174",
     ],
