@@ -1,4 +1,3 @@
 export const API_BASE =
-  import.meta.env.VITE_API_URL || "https://royal-peshawar-co-server.vercel.app/";
-
-export const API_ORIGIN = API_BASE.replace(/\/api\/?$/, "");
+  import.meta.env.VITE_API_URL ||
+  "https://royal-peshawar-co-server.vercel.app/api";
